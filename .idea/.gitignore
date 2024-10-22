@@ -1,0 +1,5 @@
+*.nii
+dcm2niix
+/shelf/
+/data/
+/workspace.xml
