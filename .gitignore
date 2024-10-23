@@ -1,0 +1,6 @@
+/data/
+/build/
+/oncogen.egg-info/
+/BrainMaGe/
+.xml
+.iml

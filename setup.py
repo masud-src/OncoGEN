@@ -3,13 +3,19 @@ import platform
 import urllib.request
 import zipfile
 import subprocess
-from setuptools import setup
+from setuptools import setup, find_packages
 from setuptools.command.install import install
 
 DCM2NIIX_URLS = {
     'Linux': 'https://github.com/rordenlab/dcm2niix/releases/latest/download/dcm2niix_lnx.zip',
     'Darwin': 'https://github.com/rordenlab/dcm2niix/releases/latest/download/dcm2niix_mac.zip',
     'Windows': 'https://github.com/rordenlab/dcm2niix/releases/latest/download/dcm2niix_win.zip'
+}
+
+CAPTK_URLS = {
+    'Linux': 'https://www.nitrc.org/frs/downloadlink.php/12726',
+    'Darwin': 'https://www.nitrc.org/frs/downloadlink.php/11518',
+    'Windows': 'https://www.nitrc.org/frs/downloadlink.php/12727'
 }
 
 # Custom Install class to handle downloading and extracting the zip file
@@ -69,19 +75,18 @@ class CustomInstallCommand(install):
         os.remove(zip_file_path)
 
     def run(self):
-        #install.run(self)
         self.get_sri24()
         self.install_dcm2niix()
-
+        install.run(self)
 
 # Define the package setup
 setup(
-    name='OncoGEN',
+    name='oncogen',
     version='0.1',
     description='Your package description',
-    packages=['OncoGEN'],
+    packages=find_packages(),
     install_requires=[
-
+        'ants', 'nibabel', 'fslpy'
     ],
     cmdclass={
         'install': CustomInstallCommand,

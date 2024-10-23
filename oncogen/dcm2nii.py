@@ -9,7 +9,6 @@ Classes:
 from helper import mkdir_if_not_exist
 from os import sep
 from shutil import move
-import dcm2niix as d2n
 
 class Dcm2niix:
     """

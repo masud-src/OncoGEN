@@ -7,11 +7,10 @@ Classes:
 """
 import os
 import subprocess
-
 from dcm2nii import Dcm2niix
+from brainmage import BrainMaGe
 from helper import mkdir_if_not_exist, get_path_file_extension
-from oncofem.interfaces.brainmage import BrainMaGe
-from oncofem.helper.constant import GENERALISATION_PATH, SRI24_T1, SRI24_T2, CAPTK_DIR
+from constants import SRI24_T1, SRI24_T2, CAPTK_DIR
 import ants
 from fsl.utils.image.resample import resample
 from fsl.data.image import Image
@@ -51,7 +50,6 @@ class Measure:
         self.date = None
         self.modality = modality
 
-
 class Generalisation:
     """
     The generalisation entity is the entry point of patient-specific magnetic resonance image series. Herein, the 
@@ -74,15 +72,23 @@ class Generalisation:
         run_all:                    Runs all commands in a clustered command
     """
 
-    def __init__(self, mri):
-        self.mri = mri
-        self.gen_dir = mri.work_dir + GENERALISATION_PATH
+    def __init__(self):
         self.d2n = Dcm2niix()
         self.brain_mage = BrainMaGe()
+        self.gen_dir = os.getcwd()
         self.brain_mage.dev = "cpu"
         self.gen_shape = (240, 240, 155)
 
-    def dcm2niigz(self, measure:Measure) -> None:
+    def set_work_dir(self, dir: str):
+        """
+        sets the working directory of the generalisation.
+
+        :param dir: String of the working directory, this is where the output is put
+        :return: 
+        """
+        self.gen_dir = dir
+
+    def dcm2niigz(self, measure: Measure) -> None:
         """
         converts input dcm file (folder) into packed nifti file
 

@@ -1,7 +1,8 @@
 import os
 from pathlib import Path
+from typing import Tuple
 
-def split_path(s: str) -> tuple[str, str]:
+def split_path(s: str) -> Tuple[str, str]:
     """
     Splits Filepath into file and path
 
@@ -30,7 +31,7 @@ def mkdir_if_not_exist(directory: str) -> str:
         os.makedirs(directory)
     return directory
 
-def get_path_file_extension(input_file: str) -> tuple[str, str, str]:
+def get_path_file_extension(input_file: str) -> Tuple[str, str, str]:
     """ 
     Returns path, the filename and the filename without extension.
 
