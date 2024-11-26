@@ -2,5 +2,5 @@
 /build/
 /oncogen.egg-info/
 /BrainMaGe/
-.xml
-.iml
+*.xml
+*.iml
