@@ -10,7 +10,7 @@ The initial step of every sub-module in OncoFEM is generally done via a setter f
 to a structural object, i. e. here the generalisation object is attached to the mri object.
 The generalisation object holds the following instance variables:
         mri:            Base class is hold for directory information and input for the generalisation,
-        gen_dir:        String of generalisation outputs,
+        work_dir:        String of generalisation outputs,
         study_dir:      String of study direction,
         d2n:            dcm2niix entity is hold which converts DICOM images into Nifti images,
         brain_mage:     BrainMaGe entity which performs the skull stripping,
