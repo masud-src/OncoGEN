@@ -9,9 +9,6 @@ import os
 import subprocess
 from .utils import Measure, Dcm2niix, BrainMaGe, mkdir_if_not_exist, get_path_file_extension
 import ants
-from fsl.utils.image.resample import resample
-from fsl.data.image import Image
-import nibabel as nib
 
 GENERALISATION_PATH = "generalisation" + os.path.sep
 SRI24_T1 = "data/sri24/templates/T1_brain.nii"
@@ -37,7 +34,6 @@ class Generalisation:
         bias_correction:            Performs the bias correction to set every image on the same level of intensity
         coregister_modality2atlas:  Coregisters the images into the direction of the SRI24 atlas
         skull_strip:                Performs the skull stripping with BrainMaGe
-        resample2standard:          Resamples the images to a standard resolution
         run_all:                    Runs all commands in a clustered command
     """
 
@@ -153,25 +149,6 @@ class Generalisation:
                 measure.dir_brainmask = self.work_dir + file_wo_extension + "_brain.nii.gz"
                 self.brain_mage.single_run(measure.dir_act, measure.dir_sks, measure.dir_brainmask)
                 measure.dir_act = measure.dir_brainmask
-
-    def resample2standard(self, file_dir: str) -> str:
-        """
-        Resamples given image into a standard shape.
-
-        *Arguments*:
-            file_dir:       String of file path
-        *Returns*:
-            resample_dir:   String of path of resampled image
-
-        """
-        mkdir_if_not_exist(self.work_dir)
-        path, file, file_wo_extension = get_path_file_extension(file_dir)
-        resample_dir = self.work_dir + os.sep + file_wo_extension + "_res.nii.gz"
-        image = Image(file_dir)
-        resample_image, resample_affine = resample(image, self.gen_shape)
-        nifti_image = nib.Nifti1Image(resample_image, resample_affine)
-        nib.save(nifti_image, resample_dir)
-        return resample_dir
 
     def run_all(self) -> None:
         """
