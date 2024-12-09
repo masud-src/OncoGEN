@@ -5,16 +5,17 @@ Generalisation tool for magnetic resonance images
 # Installation
 
 ````bash
-git clone https://github.com/masud-src/OncoFEM/
+git clone https://github.com/masud-src/OncoGEN/
 ````
 - First run
 ````bash
+chmod +x install_brainmage.sh
 install_brainmage.sh
 ````
 - Download the installer file of CaPTk(https://github.com/CBICA/CaPTk) and run the following commands on Linux:
 ````bash
-chmod +x CaPTk_*_Installer.bin
-./CaPTk_*_Installer.bin
+cd ..
+wget -O CaPTk_installer.bin $(curl -s https://api.github.com/repos/CBICA/CaPTk/releases/latest | grep "browser_download_url" | grep -E "Installer.bin" | cut -d '"' -f 4) && chmod +x CaPTk_installer.bin && ./CaPTk_installer.bin
 ````
 
 ```python
