@@ -13,7 +13,7 @@ import ants
 GENERALISATION_PATH = "generalisation" + os.path.sep
 SRI24_T1 = "data/sri24/templates/T1_brain.nii"
 SRI24_T2 = "data/sri24/templates/T2_brain.nii"
-CAPTK_DIR = "/home/marlon/Software/CaPTk/1.8.1/captk"
+CAPTK_DIR = "/home/onco/CaPTk/1.8.1/captk"
 
 
 class Generalisation:
@@ -70,11 +70,10 @@ class Generalisation:
         niigz_dir = self.work_dir
         self.d2n = Dcm2niix()
         self.d2n.f = measure.modality
-        self.d2n.f = measure.modality
         measure.dir_ngz = self.d2n.run_dcm2niix(dcm_dir, niigz_dir)
         measure.dir_act = measure.dir_ngz
 
-    def bias_correction(self, measure:Measure) -> None:
+    def bias_correction(self, measure: Measure) -> None:
         """
         Bias correction of the images
 

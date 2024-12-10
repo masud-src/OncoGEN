@@ -60,26 +60,27 @@ The generated output files can be reviewed in the respective study folder.
 
 ########################################################################################################################
 # INPUT
-from oncogen.generalisation import Generalisation, Measure
+import oncogen as og
 
-#measure_1 = Measure("data/Suditsch/T1", "t1")
-#measure_2 = Measure("data/Suditsch/Flair", "flair")
+measure_1 = og.Measure("data/Suditsch/T1", "t1")
+measure_2 = og.Measure("data/Suditsch/Flair", "flair")
+gen = og.Generalisation()
+gen.mri["t1"] = measure_1
+gen.mri["flair"] = measure_2
 #########################################################################################################################
 ## GENERALISATION
-#run_separated = True
-#if run_separated:
-#    for measure in [measure_1, measure_2]:
-#        gen = Generalisation()
-#        gen.dcm2niigz(measure)
-#        gen.bias_correction(measure)
-#
-#    mri.set_affine()  # need to be done manually, because of dcm input
-#    print("begin coregister")
-#    mri.generalisation.coregister_modality2atlas()   
-#    print("begin skull strip")
-#    mri.generalisation.skull_strip()
-#
-#    mri.t1_dir = measure_1.dir_act
-#    mri.flair_dir = measure_2.dir_act
-#else:
-#    mri.generalisation.run_all()
+run_separated = True
+if run_separated:
+    for measure in [measure_1, measure_2]:
+        gen.dcm2niigz(measure)
+        gen.bias_correction(measure)
+
+    print("begin coregister")
+    gen.coregister_modality2atlas()   
+    print("begin skull strip")
+    gen.skull_strip()
+
+    #mri.t1_dir = measure_1.dir_act
+    #mri.flair_dir = measure_2.dir_act
+else:
+    gen.run_all()
