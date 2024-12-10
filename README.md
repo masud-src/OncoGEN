@@ -57,22 +57,22 @@ sudo apt upgrade
 sudo apt install build-essential python3-pip git
 ````
 - Anaconda needs to be installed. Go to https://anaconda.org/ and follow the installation instructions.
-
+```bash
+wget -O Anaconda.sh https://repo.anaconda.com/archive/Anaconda3-latest-Linux-x86_64.sh
+bash Anaconda.sh -b -p $HOME/anaconda3
+eval "$($HOME/anaconda3/bin/conda shell.bash hook)"
+conda init
+```
+- Run the following command to set up an anaconda environment for OncoGEN and installation on the local system. The
+  two big important dependencies are the CaPTk (https://github.com/CBICA/CaPTk) software package and BrainMaGe 
+  (https://github.com/CBICA/BrainMaGe)
 ````bash
 git clone https://github.com/masud-src/OncoGEN/
-````
-- First run
-````bash
+cd OncoGEN
 chmod +x install_dependencies.sh
 install_dependencies.sh
 ````
-- Download the installer file of CaPTk(https://github.com/CBICA/CaPTk) and run the following commands on Linux:
-````bash
-cd ..
-wget -O CaPTk_installer.bin $(curl -s https://api.github.com/repos/CBICA/CaPTk/releases/latest | grep "browser_download_url" | grep -E "Installer.bin" | cut -d '"' -f 4)
-chmod +x CaPTk_installer.bin
-./CaPTk_installer.bin
-````
+
 
 ```python
 python3 -m pip install --upgrade setuptools
