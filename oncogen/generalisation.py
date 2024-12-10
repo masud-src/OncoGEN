@@ -117,7 +117,7 @@ class Generalisation:
             print(p.communicate())
 
         else:
-            for measure in {key: value for key, value in self.mri.items() if value is not None}:
+            for measure in {key: value for key, value in self.mri.items() if value is not None}.values():
                 input_dir = measure.dir_bia
                 path, file, file_wo_extension = get_path_file_extension(input_dir)
                 file_sri24 = file_wo_extension + "_to_SRI.nii.gz"
@@ -150,7 +150,7 @@ class Generalisation:
             self.brain_mage.multi_4_run(input_files, output_dir)
 
         else:
-            for measure in {key: value for key, value in self.mri.items() if value is not None}:
+            for measure in {key: value for key, value in self.mri.items() if value is not None}.values():
                 path, file, file_wo_extension = get_path_file_extension(measure.dir_act)
                 measure.dir_sks = self.work_dir + file_wo_extension + "_sks.nii.gz"
                 measure.dir_brainmask = self.work_dir + file_wo_extension + "_brain.nii.gz"
@@ -172,7 +172,7 @@ class Generalisation:
         print("Full anatomical model: ", str(self.full_ana_modality))
 
         print("Begin dcm2niigz + bias correction")
-        for measure in {key: value for key, value in self.mri.items() if value is not None}:
+        for measure in {key: value for key, value in self.mri.items() if value is not None}.values():
             self.dcm2niigz(measure)
             self.bias_correction(measure)
 
@@ -182,7 +182,7 @@ class Generalisation:
         print("Begin skull strip")
         self.skull_strip()
 
-        for measure in {key: value for key, value in self.mri.items() if value is not None}:
+        for measure in {key: value for key, value in self.mri.items() if value is not None}.values():
             if "bc_to_SRI_brain" in measure.dir_act:
                 if "t1" in measure.dir_act:
                     self.mri.t1_dir = measure.dir_act
