@@ -70,7 +70,7 @@ conda init
 git clone https://github.com/masud-src/OncoGEN/
 cd OncoGEN
 chmod +x install_dependencies.sh
-install_dependencies.sh
+./install_dependencies.sh
 ````
 
 

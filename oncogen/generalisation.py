@@ -44,15 +44,19 @@ class Generalisation:
             work_dir = work_dir + os.sep
         self.work_dir = work_dir
         self.gen_shape = (240, 240, 155)
+        self.d2n = None
+        self.mri = {"t1": None, "t1ce": None, "t2": None, "flair": None}
+        self.full_ana_modality = False
+        self.brainmage = BrainMaGe()
 
-    def set_work_dir(self, dir: str):
+    def set_work_dir(self, work_dir: str):
         """
         sets the working directory of the generalisation.
 
-        :param dir: String of the working directory, this is where the output is put
+        :param work_dir: String of the working directory, this is where the output is put
         :return: 
         """
-        self.work_dir = dir
+        self.work_dir = work_dir
 
     def dcm2niigz(self, measure: Measure) -> None:
         """
@@ -64,6 +68,8 @@ class Generalisation:
         mkdir_if_not_exist(self.work_dir)
         dcm_dir = measure.dir_src
         niigz_dir = self.work_dir
+        self.d2n = Dcm2niix()
+        self.d2n.f = measure.modality
         self.d2n.f = measure.modality
         measure.dir_ngz = self.d2n.run_dcm2niix(dcm_dir, niigz_dir)
         measure.dir_act = measure.dir_ngz
@@ -89,13 +95,13 @@ class Generalisation:
         """
         mkdir_if_not_exist(self.work_dir)
         modalities = {"t1": "-t1", "t1ce": "-t1c", "t2": "-t2", "flair": "-fl"}
-        self.mri.isFullModality()
-        if self.mri.full_ana_modality:
+        self.full_ana_modality = all(value is not None for value in self.mri.values())
+        if self.full_ana_modality:
             command = [CAPTK_DIR]
             command.append("BraTSPipeline.cwl")
-            for measure in self.mri.state.measures:
-                input_path = measure.dir_act
-                measure.dir_cor = self.work_dir + str(measure.modality) + "_to_sri.nii.gz"
+            for measure in self.mri.values():
+                input_path = measure
+                measure = self.work_dir + str(measure.modality) + "_to_sri.nii.gz"
                 measure.dir_act = measure.dir_cor
                 command.append(modalities[measure.modality])
                 command.append(input_path)
@@ -110,7 +116,7 @@ class Generalisation:
             print(p.communicate())
 
         else:
-            for measure in self.mri.state.measures:
+            for measure in self.mri.values():
                 input_dir = measure.dir_bia
                 path, file, file_wo_extension = get_path_file_extension(input_dir)
                 file_sri24 = file_wo_extension + "_to_SRI.nii.gz"
@@ -136,14 +142,14 @@ class Generalisation:
         Skull strips the given input images
         """
         mkdir_if_not_exist(self.work_dir)
-        self.mri.isFullModality()
-        if self.mri.full_ana_modality:
-            input_files = [self.mri.t1_dir, self.mri.t2_dir, self.mri.t1ce_dir, self.mri.flair_dir]
+        self.full_ana_modality = all(value is not None for value in self.mri.values())
+        if self.full_ana_modality:
+            input_files = [self.mri["t1"], self.mri["t2"], self.mri["t1ce"], self.mri["flair"]]
             output_dir = self.work_dir + os.sep
             self.brain_mage.multi_4_run(input_files, output_dir)
 
         else:
-            for measure in self.mri.state.measures:
+            for measure in self.mri.values():
                 path, file, file_wo_extension = get_path_file_extension(measure.dir_act)
                 measure.dir_sks = self.work_dir + file_wo_extension + "_sks.nii.gz"
                 measure.dir_brainmask = self.work_dir + file_wo_extension + "_brain.nii.gz"
@@ -161,10 +167,11 @@ class Generalisation:
             6. Resample onto Standard sample size
         """
         print("Begin generalisation")
-        print("Full anatomical model: ", str(self.mri.isFullModality()))
+        self.full_ana_modality = all(value is not None for value in self.mri.values())
+        print("Full anatomical model: ", str(self.full_ana_modality))
 
         print("Begin dcm2niigz + bias correction")
-        for measure in self.mri.state.measures:
+        for measure in self.mri.values():
             self.dcm2niigz(measure)
             self.bias_correction(measure)
 
@@ -184,5 +191,3 @@ class Generalisation:
                     self.mri.t1ce_dir = measure.dir_act
                 elif "flair" in measure.dir_act:
                     self.mri.flair_dir = measure.dir_act
-
-

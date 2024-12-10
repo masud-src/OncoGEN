@@ -22,9 +22,11 @@ Function:
 import os
 import os.path
 import pathlib
-import constant
 from typing import List
 
+DER_DIR = "der/"
+SOL_DIR = "sol/"
+STUDIES_DIR = "/home/onco/studies"
 
 class Measure:
     """
@@ -87,7 +89,7 @@ class State:
         self.sol_dir = None
         self.measures = []
 
-    def create_measure(self, path:str, modality:str) -> Measure:
+    def create_measure(self, path: str, modality: str) -> Measure:
         """
         Creates a measure with a given path and modality. Initialised measures are appended in the respective list.
 
@@ -110,8 +112,8 @@ class State:
         """
         Sets the derivative and solution directories of the state.
         """
-        self.der_dir = join_path([self.study_dir, constant.DER_DIR, self.subj_id, self.state_id])
-        self.sol_dir = join_path([self.study_dir, constant.SOL_DIR, self.subj_id, self.state_id])
+        self.der_dir = join_path([self.study_dir, DER_DIR, self.subj_id, self.state_id])
+        self.sol_dir = join_path([self.study_dir, SOL_DIR, self.subj_id, self.state_id])
 
 
 class Subject:
@@ -156,8 +158,8 @@ class Subject:
         """
         Sets the derivative and solution directories of the state.
         """
-        self.der_dir = join_path([self.study_dir, constant.DER_DIR, self.subj_id])
-        self.sol_dir = join_path([self.study_dir, constant.SOL_DIR, self.subj_id])
+        self.der_dir = join_path([self.study_dir, DER_DIR, self.subj_id])
+        self.sol_dir = join_path([self.study_dir, SOL_DIR, self.subj_id])
 
 class Study:
     """
@@ -176,9 +178,9 @@ class Study:
     """
     def __init__(self, title: str):
         self.title = title
-        self.dir = constant.STUDIES_DIR + title + os.sep
-        self.der_dir = self.dir + constant.DER_DIR
-        self.sol_dir = self.dir + constant.SOL_DIR
+        self.dir = STUDIES_DIR + title + os.sep
+        self.der_dir = self.dir + DER_DIR
+        self.sol_dir = self.dir + SOL_DIR
         self.subjects = []
 
         try:
