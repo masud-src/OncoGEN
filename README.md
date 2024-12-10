@@ -58,7 +58,8 @@ sudo apt install build-essential python3-pytest gmsh libz-dev git-lfs cmake libe
 ````
 ```bash
 pip install --upgrade pip
-pip install numpy==1.22 nipype==1.7.0 filelock==3.0.0 scikit-image==0.16.2 etelemetry==0.2.0 torch vtk fslpy meshio pandas matplotlib nibabel==4.0 dcm2niix tensorboard antspyx==0.4.2
+pip install numpy==1.22 
+pip nipype==1.7.0 filelock==3.0.0 scikit-image==0.16.2 etelemetry==0.2.0 torch=1.11 nibabel==4.0 dcm2niix tensorboard antspyx==0.4.2
 ```
 - Anaconda needs to be installed. Go to https://anaconda.org/ and follow the installation instructions.
 ```bash
