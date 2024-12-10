@@ -13,7 +13,7 @@ import ants
 GENERALISATION_PATH = "generalisation" + os.path.sep
 SRI24_T1 = "data/sri24/templates/T1_brain.nii"
 SRI24_T2 = "data/sri24/templates/T2_brain.nii"
-CAPTK_DIR = "/home/onco/CaPTk/1.8.1/captk"
+CAPTK_DIR = "/home/marlon/Software/CaPTk/1.8.1/captk"
 
 
 class Generalisation:
@@ -181,14 +181,3 @@ class Generalisation:
 
         print("Begin skull strip")
         self.skull_strip()
-
-        for measure in {key: value for key, value in self.mri.items() if value is not None}.values():
-            if "bc_to_SRI_brain" in measure.dir_act:
-                if "t1" in measure.dir_act:
-                    self.mri.t1_dir = measure.dir_act
-                elif "t2" in measure.dir_act:
-                    self.mri.t2_dir = measure.dir_act
-                elif "t1ce" in measure.dir_act:
-                    self.mri.t1ce_dir = measure.dir_act
-                elif "flair" in measure.dir_act:
-                    self.mri.flair_dir = measure.dir_act

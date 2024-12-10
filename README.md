@@ -54,8 +54,12 @@ To ensure, the system is ready, it is first updated, upgraded and basic packages
 ````bash
 sudo apt update
 sudo apt upgrade
-sudo apt install build-essential python3-pip git
+sudo apt install build-essential python3-pytest gmsh libz-dev git-lfs cmake libeigen3-dev libgmp-dev libmpfr-dev libboost-dev python3-pip git vim
 ````
+```bash
+pip install --upgrade pip
+pip install numpy==1.22 nipype==1.7.0 filelock==3.0.0 scikit-image==0.16.2 etelemetry==0.2.0 torch vtk fslpy meshio pandas matplotlib nibabel==4.0 dcm2niix tensorboard antspyx==0.4.2
+```
 - Anaconda needs to be installed. Go to https://anaconda.org/ and follow the installation instructions.
 ```bash
 wget -O Anaconda.sh https://repo.anaconda.com/archive/Anaconda3-latest-Linux-x86_64.sh
@@ -72,37 +76,14 @@ cd OncoGEN
 chmod +x install_dependencies.sh
 ./install_dependencies.sh
 ````
-
-
-```python
-python3 -m pip install --upgrade setuptools
-cd OncoGEN
-python3 -m pip install .
-```
-
-```python
-pip install ants
-```
-
-- Run the following command to set up an anaconda environment for oncostr by pressing 2 in the system dialog.
-````bash
-git clone https://github.com/masud-src/OncoSTR/
-cd OncoSTR
-python3 create_conda_environment.py
-conda activate oncostr
-````
-- Download the fsl package from https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation and install in preferred 
-directory, ensure that oncostr environment is chosen.
-````bash
-python3 fslinstaller.py
-````
 - Finally install oncostr on the local system.
 ````bash
+python -m pip install --upgrade setuptools
 python3 -m pip install .
 ````
 - The package can now be used. To test the correct installation, run a python script with the following code line.
 ````bash
-import oncostr
+import oncogen
 ````
 
 ### <a id="oncofem"></a> Install on existing OncoFEM environment
@@ -114,19 +95,13 @@ cd OncoSTR
 python3 create_conda_environment.py
 conda activate oncofem
 ````
-- Download the fsl package from https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation and install in preferred 
-directory, ensure that oncostr environment is chosen. With the minimal flag, only necessary packages will be installed.
-````bash
-curl -O https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py
-python fslinstaller.py --minimal
-````
-- Finally install oncostr on the local system.
+- Finally install oncogen on the local system.
 ````bash
 python3 -m pip install .
 ````
 - The package can now be used. To test the correct installation, run a python script with the following code line.
 ````bash
-import oncostr
+import oncogen
 ````
 
 ## <a id="tutorial"></a> Tutorial

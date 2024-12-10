@@ -69,9 +69,9 @@ gen.mri["t1"] = measure_1
 gen.mri["flair"] = measure_2
 #########################################################################################################################
 ## GENERALISATION
-run_separated = True
+run_separated = False
 if run_separated:
-    for measure in {key: value for key, value in gen.mri.items() if value is not None}:
+    for measure in {key: value for key, value in gen.mri.items() if value is not None}.values():
         measure = gen.dcm2niigz(measure)
         measure = gen.bias_correction(measure)
 
