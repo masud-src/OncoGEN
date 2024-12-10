@@ -47,7 +47,7 @@ class Generalisation:
         self.d2n = None
         self.mri = {"t1": None, "t1ce": None, "t2": None, "flair": None}
         self.full_ana_modality = False
-        self.brainmage = BrainMaGe()
+        self.brain_mage = BrainMaGe()
 
     def set_work_dir(self, work_dir: str):
         """
@@ -100,9 +100,9 @@ class Generalisation:
         if self.full_ana_modality:
             command = [CAPTK_DIR]
             command.append("BraTSPipeline.cwl")
-            for measure in self.mri.values():
+            for measure in {key: value for key, value in self.mri.items() if value is not None}.values():
                 input_path = measure
-                measure = self.work_dir + str(measure.modality) + "_to_sri.nii.gz"
+                measure.dir_cor = self.work_dir + str(measure.modality) + "_to_sri.nii.gz"
                 measure.dir_act = measure.dir_cor
                 command.append(modalities[measure.modality])
                 command.append(input_path)
