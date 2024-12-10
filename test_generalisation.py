@@ -72,8 +72,8 @@ gen.mri["flair"] = measure_2
 run_separated = True
 if run_separated:
     for measure in {key: value for key, value in gen.mri.items() if value is not None}:
-        gen.dcm2niigz(measure)
-        gen.bias_correction(measure)
+        measure = gen.dcm2niigz(measure)
+        measure = gen.bias_correction(measure)
 
     print("begin coregister")
     gen.coregister_modality2atlas()   

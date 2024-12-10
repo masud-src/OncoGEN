@@ -58,7 +58,7 @@ class Generalisation:
         """
         self.work_dir = work_dir
 
-    def dcm2niigz(self, measure: Measure) -> None:
+    def dcm2niigz(self, measure: Measure) -> Measure:
         """
         converts input dcm file (folder) into packed nifti file
 
@@ -72,8 +72,9 @@ class Generalisation:
         self.d2n.f = measure.modality
         measure.dir_ngz = self.d2n.run_dcm2niix(dcm_dir, niigz_dir)
         measure.dir_act = measure.dir_ngz
+        return measure
 
-    def bias_correction(self, measure: Measure) -> None:
+    def bias_correction(self, measure: Measure) -> Measure:
         """
         Bias correction of the images
 
@@ -87,6 +88,7 @@ class Generalisation:
         image = ants.image_read(input_image)
         image_n4 = ants.n4_bias_field_correction(image)
         ants.image_write(image_n4, measure.dir_bia)
+        return measure
 
     def coregister_modality2atlas(self) -> None:
         """
