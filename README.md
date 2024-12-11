@@ -107,7 +107,23 @@ TBD
 
 ## <a id="literature"></a> Literature
 
-<sup>1</sup> M. Jenkinson, C.F. Beckmann, T.E. Behrens, M.W. Woolrich, S.M. Smith. FSL. NeuroImage, 62:782-90, 2012
+<sup>1</sup> Li X, Morgan PS, Ashburner J, Smith J, Rorden C (2016) The first step for neuroimaging data analysis: DICOM 
+to NIfTI conversion. J Neurosci Methods. 264:47-56. doi: 10.1016/j.jneumeth.2016.03.001. PMID: 26945974
+
+<sup>2</sup> Tustison NJ, Avants BB, Cook PA, Zheng Y, Egan A, Yushkevich PA, Gee JC. N4ITK: improved N3 bias correction. 
+IEEE Trans Med Imaging. 2010 Jun;29(6):1310-20. doi: 10.1109/TMI.2010.2046908. Epub 2010 Apr 8. PMID: 20378467;
+PMCID: PMC3071855.
+
+<sup>3</sup> C.Davatzikos, S.Rathore, S.Bakas, S.Pati, M.Bergman, R.Kalarot, P.Sridharan, A.Gastounioti, N.Jahani, 
+E.Cohen, H.Akbari, B.Tunc, J.Doshi, D.Parker, M.Hsieh, A.Sotiras, H.Li, Y.Ou, R.K.Doot, M.Bilello, Y.Fan, R.T.Shinohara, 
+P.Yushkevich, R.Verma, D.Kontos, "Cancer imaging phenomics toolkit: quantitative imaging analytics for precision 
+diagnostics and predictive modeling of clinical outcome", J Med Imaging, 5(1):011018, 2018, DOI:10.1117/1.JMI.5.1.011018
+
+<sup>4</sup> Thakur S, Doshi J, Pati S, Rathore S, Sako C, Bilello M, Ha SM, Shukla G, Flanders A, Kotrotsou A, 
+Milchenko M, Liem S, Alexander GS, Lombardo J, Palmer JD, LaMontagne P, Nazeri A, Talbar S, Kulkarni U, Marcus D, 
+Colen R, Davatzikos C, Erus G, Bakas S. Brain extraction on MRI scans in presence of diffuse glioma: Multi-institutional 
+performance evaluation of deep learning methods and robust modality-agnostic training. Neuroimage. 
+2020 Oct 15;220:117081. doi: 10.1016/j.neuroimage.2020.117081. Epub 2020 Jun 27. PMID: 32603860; PMCID: PMC7597856.
 
 ## <a id="about"></a> About
 
