@@ -14,7 +14,6 @@ advanced image processing techniques. In general, the workflow consist of:
 * [How to](#howto)
 * [How to cite](#howtocite)
 * [Literature](#literature)
-* [About](#about)
 
 ## <a id="integration"></a> Integration of OncoGEN
 
@@ -85,7 +84,7 @@ import oncogen
 ## <a id="tutorial"></a> Tutorial
 
 There is a tutorial for the umbrella software project provided on DaRUS 
-(https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/darus-3679). You can download via the web 
+(https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/darus-4639). You can download via the web 
 interface or by running the following line into your desired directory.
 ````bash
 curl --output tutorial https:/darus.uni-stuttgart.de/api/access/dataset/:persistentId/?persistentId=doi:10.18419/darus-3679
@@ -124,7 +123,3 @@ Milchenko M, Liem S, Alexander GS, Lombardo J, Palmer JD, LaMontagne P, Nazeri A
 Colen R, Davatzikos C, Erus G, Bakas S. Brain extraction on MRI scans in presence of diffuse glioma: Multi-institutional 
 performance evaluation of deep learning methods and robust modality-agnostic training. Neuroimage. 
 2020 Oct 15;220:117081. doi: 10.1016/j.neuroimage.2020.117081. Epub 2020 Jun 27. PMID: 32603860; PMCID: PMC7597856.
-
-## <a id="about"></a> About
-
-OncoSTR is written by Marlon Suditsch
