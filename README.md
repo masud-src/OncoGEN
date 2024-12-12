@@ -87,7 +87,7 @@ There is a tutorial for the umbrella software project provided on DaRUS
 (https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/darus-4639). You can download via the web 
 interface or by running the following line into your desired directory.
 ````bash
-curl --output tutorial https:/darus.uni-stuttgart.de/api/access/dataset/:persistentId/?persistentId=doi:10.18419/darus-3679
+curl --output tutorial https:/darus.uni-stuttgart.de/api/access/dataset/:persistentId/?persistentId=doi:10.18419/darus-4639
 ````
 The tutorial can be started with
 ````bash
