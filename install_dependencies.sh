@@ -64,7 +64,7 @@ echo "Please choose an option:"
 echo "1) Create anaconda environment according to BrainMaGe README"
 echo "2) Create anaconda environment without hard definition of each package"
 echo "3) Create custom environment from oncogen.txt (recommended for stand-alone)"
-echo "4) Update on OncoFEM installation. "
+echo "4) Update on OncoFEM installation."
 
 # Read user input
 read -p "Enter the number of your choice (1, 2, 3, 4): " choice
@@ -85,7 +85,7 @@ case $choice in
         ;;
     4)
         conda activate oncofem
-        conda install --file requirements.txt --update-deps
+        conda install --file ../OncoGEN/oncogen.txt --no-update-deps
         ;;
     *)
         echo "Invalid option. Please choose 1, 2, or 3."

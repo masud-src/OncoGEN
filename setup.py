@@ -2,7 +2,6 @@ import os
 import platform
 import urllib.request
 import zipfile
-import subprocess
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
@@ -18,7 +17,6 @@ CAPTK_URLS = {
     'Windows': 'https://www.nitrc.org/frs/downloadlink.php/12727'
 }
 
-# Custom Install class to handle downloading and extracting the zip file
 class CustomInstallCommand(install):
     def get_sri24(self):
         url = "https://www.nitrc.org/frs/download.php/4841/sri24_spm8.zip//?i_agree=1&download_now=1"
@@ -82,7 +80,7 @@ class CustomInstallCommand(install):
 # Define the package setup
 setup(
     name='oncogen',
-    version='0.1',
+    version='0.1.0',
     description='Your package description',
     packages=find_packages(),
     install_requires=[
