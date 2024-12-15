@@ -10,8 +10,6 @@ advanced image processing techniques. In general, the workflow consist of:
 
 * [Software availability](#software)
 * [Installation and machine requirements](#installation)
-  * [Short installation](#short_install)
-  * [Detailed installation](#detailed_install)
 * [Tutorial](#tutorial)
 * [How to](#howto)
 * [How to cite](#howtocite)
@@ -51,7 +49,6 @@ first and add the missing packages. This installation was tested on
 (intel cpu i7-9700k with 3.6 GHz, 128 GB RAM).
 - a MacBook Pro (Mac14,7) with a Apple M2 Chip (8 cores) and 24 GB memory. The integrated GPU got 10 cores.
 
-### <a id="short_install"></a> Short installation
 Download the repository.
 ````bash
 git clone https://github.com/masud-src/OncoGEN/
@@ -72,173 +69,7 @@ Now, the package can be installed with
 chmod +x install_oncogen.sh
 ./install_oncogen.sh
 ````
-
-### <a id="detailed_install"></a> Detailed installation
-
-To ensure, the system is ready, it is first updated, upgraded and basic packages are installed via apt.
-````bash
-sudo apt update
-sudo apt upgrade
-sudo apt install build-essential python3-pytest libz-dev cmake libeigen3-dev libgmp-dev libmpfr-dev libboost-dev python3-pip git
-````
-- Anaconda needs to be installed. Go to https://anaconda.org/ and follow the installation instructions.
-```bash
-OS=$(uname -s)
-ARCH=$(uname -m)
-
-if [[ "$OS" == "Linux" ]]; then
-    OS="Linux"
-elif [[ "$OS" == "Darwin" ]]; then
-    OS="MacOSX"
-elif [[ "$OS" =~ MINGW64 || "$OS" =~ MSYS ]]; then
-    OS="Windows"
-else
-    echo "Unsupported OS: $OS"
-    exit 1
-fi
-
-if [[ "$OS" == "MacOSX" && "$ARCH" == "arm64" ]]; then
-    ARCH="arm64"
-elif [[ "$ARCH" == "x86_64" ]]; then
-    ARCH="x86_64"
-else
-    echo "Unsupported architecture: $ARCH"
-    exit 1
-fi
-URL="https://repo.anaconda.com/archive/Anaconda3-latest-$OS-$ARCH.sh"
-echo "Downloading Anaconda installer from: $URL"
-curl -o AnacondaInstaller.sh "$URL"
-bash Anaconda.sh -b -p $HOME/anaconda3
-eval "$($HOME/anaconda3/bin/conda shell.bash hook)"
-conda init
-```
-- Run the following command to set up an anaconda environment for OncoGEN and installation on the local system. The
-  two big important dependencies are the CaPTk (https://github.com/CBICA/CaPTk) software package and BrainMaGe 
-  (https://github.com/CBICA/BrainMaGe). Here you need to chose your installation mode. Its recommended to create the 
-  anaconda environment in a custom style (option 3) for stand-alone installation. Option 4 adds needed packages to the 
-  oncofem environment
-````bash
-git clone https://github.com/masud-src/OncoGEN/
-cd OncoGEN
-# Function to detect the operating system
-detect_os() {
-    case "$(uname -s)" in
-        Linux*)     OS="Linux";;
-        Darwin*)    OS="macOS";;
-        CYGWIN*|MINGW*|MSYS*) OS="Windows";;
-        *)          OS="Unknown";;
-    esac
-}
-
-# Function to download and install the appropriate file
-install_captk() {
-    case $OS in
-        Linux)
-            URL="https://captk.projects.nitrc.org/CaPTk_1.8.1_Installer.bin"
-            FILENAME="CaPTk_Installer.bin"
-            ;;
-        macOS)
-            URL="https://captk.projects.nitrc.org/CaPTk_1.8.1_Installer.pkg"
-            FILENAME="CaPTk_Installer.pkg"
-            ;;
-        Windows)
-            URL="https://captk.projects.nitrc.org/CaPTk_1.8.1_Installer.exe"
-            FILENAME="CaPTk_Installer.exe"
-            ;;
-        *)
-            echo "Unsupported operating system: $OS"
-            exit 1
-            ;;
-    esac
-
-    echo "Detected OS: $OS"
-    echo "Downloading from $URL..."
-
-    # Download the file
-    curl -L -o "$FILENAME" "$URL"
-
-    # Install based on the OS
-    if [[ $OS == "Linux" ]]; then
-        chmod +x "$FILENAME"
-        ./"$FILENAME"
-    elif [[ $OS == "macOS" ]]; then
-        sudo installer -pkg "$FILENAME" -target /
-    elif [[ $OS == "Windows" ]]; then
-        echo "Run the installer manually: $FILENAME"
-    fi
-
-    echo "Installation complete."
-}
-
-echo "Installation of BrainMaGe"
-cd ..
-git clone https://github.com/CBICA/BrainMaGe.git
-cd BrainMaGe || exit
-curl -L -o resunet_ma.pt https://github.com/CBICA/BrainMaGe/raw/master/BrainMaGe/weights/resunet_ma.pt
-mv resunet_ma.pt /BrainMaGe/weights/.
-curl -L -o resunet_multi_4 https://github.com/CBICA/BrainMaGe/raw/master/BrainMaGe/weights/resunet_multi_4.pt
-mv resunet_multi_4.pt /BrainMaGe/weights/.
-
-# Display the options
-echo "Please choose an option:"
-echo "1) Create anaconda environment according to BrainMaGe README"
-echo "2) Create anaconda environment without hard definition of each package"
-echo "3) Create custom environment from oncogen.txt (recommended for stand-alone)"
-echo "4) Update on OncoFEM installation."
-
-# Read user input
-read -p "Enter the number of your choice (1, 2, 3, 4): " choice
-
-# Execute based on user input
-case $choice in
-    1)
-        sed -i '1s/.*/name: oncogen/' environment.yml
-        conda env create -f requirements.yml
-        ;;
-    2)
-        sed -i '/=/s/=.*//' environment.yml
-        sed -i '1s/.*/name: oncogen/' environment.yml
-        conda env create -f requirements.yml
-        ;;
-    3)
-        conda create --name oncogen --file ../OncoGEN/oncogen.txt
-        ;;
-    4)
-        conda activate oncofem
-        conda install --file ../OncoGEN/oncogen.txt --no-update-deps
-        ;;
-    *)
-        echo "Invalid option. Please choose 1, 2, or 3."
-        ;;
-esac
-
-conda activate oncogen
-
-pip install --upgrade pip
-pip install numpy==1.22
-pip nipype==1.7.0 filelock==3.0.0 scikit-image==0.16.2 etelemetry==0.2.0 torch=1.11 nibabel==4.0 dcm2niix tensorboard antspyx==0.4.2
-
-latesttag=$(git describe --tags)
-echo "Checking out ${latesttag}"
-git checkout ${latesttag}
-python setup.py install
-cd ..
-
-echo "Installation of CaPTk"
-detect_os
-install_captk
-cd OncoGEN
-echo "Installation of prerequisites is completed successfully!"
-echo "Some changes require the terminal to be restarted."
-echo "Please close and reopen your terminal to apply the changes."
-exit 0
-````
-- Finally install oncogen on the local system.
-````bash
-python -m pip install --upgrade setuptools
-python -m pip install .
-````
-- The package can now be used. To test the correct installation, run a python script with the following code line.
+For quick evaluation of the software is correctly installed, please open python in a terminal and run
 ````bash
 import oncogen
 ````
