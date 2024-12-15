@@ -11,7 +11,7 @@ advanced image processing techniques. In general, the workflow consist of:
 * [Software availability](#software)
 * [Installation and machine requirements](#installation)
 * [Tutorial](#tutorial)
-* [How to](#howto)
+* [How to develop](#howto)
 * [How to cite](#howtocite)
 * [Literature](#literature)
 
@@ -88,7 +88,7 @@ conda activate oncogen
 python oncogen_tut_01_separated_full.py
 ````
 
-## <a id="howto"></a> How To
+## <a id="howtodevelop"></a> How to develop
 
 You can modify the existing algorithms, respectively expand the existing by your own. Therefore, you can fork and ask 
 for pull requests.
