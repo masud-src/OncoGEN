@@ -1,5 +1,65 @@
 #!/bin/bash
 
+echo "Choose the environment: (1) for OncoFEM, (2) for just pip installation"
+read env_choice
+
+if [[ "$env_choice" == "1" ]]; then
+  conda activate oncofem
+elif [[ "$env_choice" == "2" ]]; then
+  echo "only pip installation is chosen."
+else
+  echo "Invalid choice. Please choose either '1' for OncoSTR or '2' for OncoFEM."
+  exit 1
+fi
+
+# Function to install packages for Linux
+install_linux() {
+    echo "Detected Linux OS. Proceeding with installation."
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt install -y build-essential python3-pytest gmsh libz-dev cmake libeigen3-dev libgmp-dev libgmp3-dev libmpfr-dev libboost-all-dev python3-pip git
+}
+
+# Function to install packages for macOS
+install_macos() {
+    echo "Detected macOS. Proceeding with installation."
+    # Check if Homebrew is installed
+    if ! command -v brew &>/dev/null; then
+        echo "Homebrew is not installed. Installing Homebrew."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo "Homebrew installed successfully."
+    fi
+
+    brew update
+    brew upgrade
+    brew install \
+        cmake \
+        eigen \
+        gmp \
+        mpfr \
+        boost \
+        gmsh \
+        python3 \
+        git
+
+    # Ensure command-line tools are installed
+    xcode-select --install 2>/dev/null || echo "Command line tools already installed."
+
+    # Install Python testing tool
+    pip3 install --upgrade pytest
+}
+
+# Detect OS
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    install_linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    install_macos
+else
+    echo "Unsupported operating system: $OSTYPE"
+    exit 1
+fi
+
+
 # Function to detect the operating system
 detect_os() {
     case "$(uname -s)" in
@@ -35,7 +95,7 @@ install_captk() {
     echo "Downloading from $URL..."
 
     # Download the file
-    wget -O "$FILENAME" "$URL"
+    curl -L -o "$FILENAME" "$URL"
 
     # Install based on the OS
     if [[ $OS == "Linux" ]]; then
@@ -54,9 +114,9 @@ echo "Installation of BrainMaGe"
 cd ..
 git clone https://github.com/CBICA/BrainMaGe.git
 cd BrainMaGe || exit
-wget https://github.com/CBICA/BrainMaGe/raw/master/BrainMaGe/weights/resunet_ma.pt
+curl -L -o resunet_ma.pt https://github.com/CBICA/BrainMaGe/raw/master/BrainMaGe/weights/resunet_ma.pt
 mv resunet_ma.pt /BrainMaGe/weights/.
-wget https://github.com/CBICA/BrainMaGe/raw/master/BrainMaGe/weights/resunet_multi_4.pt
+curl -L -o resunet_multi_4 https://github.com/CBICA/BrainMaGe/raw/master/BrainMaGe/weights/resunet_multi_4.pt
 mv resunet_multi_4.pt /BrainMaGe/weights/.
 
 # Display the options
@@ -102,8 +162,13 @@ latesttag=$(git describe --tags)
 echo "Checking out ${latesttag}"
 git checkout ${latesttag}
 python setup.py install
-cd .. 
+cd ..
 
 echo "Installation of CaPTk"
 detect_os
 install_captk
+cd OncoGEN
+echo "Installation of prerequisites is completed successfully!"
+echo "Some changes require the terminal to be restarted."
+echo "Please close and reopen your terminal to apply the changes."
+exit 0
