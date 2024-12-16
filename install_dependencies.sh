@@ -134,16 +134,20 @@ case $choice in
     1)
         sed -i '1s/.*/name: oncogen/' environment.yml
         conda env create -f requirements.yml
+        conda activate oncogen
         ;;
     2)
         sed -i '/=/s/=.*//' environment.yml
         sed -i '1s/.*/name: oncogen/' environment.yml
         conda env create -f requirements.yml
+        conda activate oncogen
         ;;
     3)
         conda create --name oncogen --file ../OncoGEN/oncogen.txt
+        conda activate oncogen
         ;;
     4)
+        conda init
         conda activate oncofem
         conda install --file ../OncoGEN/oncogen.txt --no-update-deps
         ;;
@@ -151,8 +155,6 @@ case $choice in
         echo "Invalid option. Please choose 1, 2, or 3."
         ;;
 esac
-
-conda activate oncogen
 
 pip install --upgrade pip
 pip install numpy==1.22

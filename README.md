@@ -57,7 +57,7 @@ cd OncoGEN
 If not installed already, here is a script to install anaconda on your system. Please restart the terminal.
 ````bash
 chmod +x install_anaconda.sh
-./install_oncogen.sh
+./install_anaconda.sh
 ````
 To install the dependencies execute the following shell script. Please restart the terminal.
 ````bash
