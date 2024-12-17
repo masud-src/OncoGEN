@@ -18,8 +18,8 @@ STUDIES_DIR = config.get("directories", "STUDIES_DIR")
 CAPTK_DIR = config.get("directories", "CAPTK_DIR")
 
 GENERALISATION_PATH = "generalisation" + os.path.sep
-SRI24_T1 = ONCOGEN_DIR + "data/sri24/templates/T1_brain.nii"
-SRI24_T2 = ONCOGEN_DIR + "data/sri24/templates/T2_brain.nii"
+SRI24_T1 = ONCOGEN_DIR + os.sep + "data/sri24/templates/T1_brain.nii"
+SRI24_T2 = ONCOGEN_DIR + os.sep + "data/sri24/templates/T2_brain.nii"
 
 
 class Generalisation:

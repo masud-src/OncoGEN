@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Choose the environment: (1) for OncoFEM, (2) for just pip installation"
+echo "Choose the environment: (1) for OncoFEM, (2) or other"
 read env_choice
 
 if [[ "$env_choice" == "1" ]]; then
@@ -178,8 +178,6 @@ if [[ -z "${ONCOGEN_DIR}" ]]; then
     ONCOGEN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 fi
 
-USER_HOME="$HOME"
-
 add_to_path_unix() {
     if ! grep -q "export ONCOGEN=" ~/.bashrc; then
         echo "export ONCOGEN=$ONCOGEN_DIR" >> ~/.bashrc
@@ -214,11 +212,11 @@ add_to_path_windows() {
 }
 
 create_config_file(){
-    CONFIG_FILE="$ONCOTUM_DIR/config.ini"
+    CONFIG_FILE="$ONCOGEN/config.ini"
     {
         echo "[directories]"
-        echo "STUDIES_DIR: $USER_HOME/studies/"
-        echo "CAPTK_DIR: $USER_HOME/CaPTk/1.8.1/captk"
+        echo "STUDIES_DIR: $HOME/studies/"
+        echo "CAPTK_DIR: $HOME/CaPTk/1.8.1/captk"
 
     } > "$CONFIG_FILE"
     echo "Config file created."
