@@ -1,5 +1,5 @@
 """
 
 """
-from .generalisation import Generalisation
+from .generalisation import Generalisation, STUDIES_DIR
 from .utils import Measure
