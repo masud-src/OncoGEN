@@ -165,7 +165,6 @@ class Generalisation:
             3. Co-register axial, sagittal, coronal into one image (not implemented)
             4. Co-register into Atlas Space
             5. Skull strip 
-            6. Resample onto Standard sample size
         """
         print("Begin generalisation")
         self.full_ana_modality = all(value is not None for value in self.mri.values())

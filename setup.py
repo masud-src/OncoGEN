@@ -84,7 +84,7 @@ setup(
     description='Your package description',
     packages=find_packages(),
     install_requires=[
-        'ants', 'nibabel', 'fslpy'
+        'antspyx', 'nibabel', 'fslpy'
     ],
     cmdclass={
         'install': CustomInstallCommand,
