@@ -17,7 +17,7 @@ install_linux() {
     echo "Detected Linux OS. Proceeding with installation."
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install -y build-essential python3-pytest gmsh libz-dev cmake libeigen3-dev libgmp-dev libgmp3-dev libmpfr-dev libboost-all-dev python3-pip git
+    sudo apt install -y build-essential python3-pytest libz-dev cmake libeigen3-dev libgmp-dev libgmp3-dev libmpfr-dev libboost-all-dev python3-pip
 }
 
 # Function to install packages for macOS
@@ -115,9 +115,9 @@ cd ..
 git clone https://github.com/CBICA/BrainMaGe.git
 cd BrainMaGe || exit
 curl -L -o resunet_ma.pt https://github.com/CBICA/BrainMaGe/raw/master/BrainMaGe/weights/resunet_ma.pt
-mv resunet_ma.pt /BrainMaGe/weights/.
-curl -L -o resunet_multi_4 https://github.com/CBICA/BrainMaGe/raw/master/BrainMaGe/weights/resunet_multi_4.pt
-mv resunet_multi_4.pt /BrainMaGe/weights/.
+mv resunet_ma.pt BrainMaGe/weights/.
+curl -L -o resunet_multi_4.pt https://github.com/CBICA/BrainMaGe/raw/master/BrainMaGe/weights/resunet_multi_4.pt
+mv resunet_multi_4.pt BrainMaGe/weights/.
 
 # Display the options
 echo "Please choose an option:"
