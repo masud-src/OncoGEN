@@ -14,5 +14,5 @@ else
   exit 1
 fi
 
-python -m pip install --upgrade setuptools
+python -m pip install --upgrade setuptools==60.9.1
 python -m pip install .

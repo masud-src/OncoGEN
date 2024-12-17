@@ -9,6 +9,13 @@ import os
 import subprocess
 from .utils import Measure, Dcm2niix, BrainMaGe, mkdir_if_not_exist, get_path_file_extension
 import ants
+import configparser
+
+ONCOGEN_DIR = os.environ['ONCOGEN']
+config = configparser.ConfigParser()
+config.read(ONCOGEN_DIR + os.sep + "config.ini")
+STUDIES_DIR = config.get("directories", "STUDIES_DIR")
+CAPTK_DIR = config.get("directories", "CAPTK_DIR")
 
 GENERALISATION_PATH = "generalisation" + os.path.sep
 SRI24_T1 = "data/sri24/templates/T1_brain.nii"
