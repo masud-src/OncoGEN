@@ -158,7 +158,7 @@ esac
 
 pip install --upgrade pip
 pip install numpy==1.23.5
-pip nipype==1.7.0 filelock==3.0.0 scikit-image==0.16.2 etelemetry==0.2.0 torch=1.11 nibabel==4.0 dcm2niix tensorboard antspyx==0.4.2
+pip install nipype==1.7.0 filelock==3.0.0 scikit-image==0.16.2 etelemetry==0.2.0 torch==1.11 nibabel==4.0 dcm2niix tensorboard antspyx==0.4.2
 
 latesttag=$(git describe --tags)
 echo "Checking out ${latesttag}"
