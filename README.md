@@ -53,19 +53,39 @@ Download the repository.
 ````bash
 git clone https://github.com/masud-src/OncoGEN/
 cd OncoGEN
+chmod +x install_prerequisites.sh
+./install_prerequisites.sh
 ````
 If not installed already, here is a script to install anaconda on your system. Please restart the terminal.
 ````bash
 chmod +x install_anaconda.sh
 ./install_anaconda.sh
 ````
-To install the dependencies execute the following shell script. Please restart the terminal.
+Next the dependency BrainMaGe [4] is downloaded and the user can decide in which way the environment should be set up.
+The user can choose between
+1) Set up according to BrainMaGe 
+2) Set up according to BrainMaGe without fixed package versions
+3) Set up in stand-alone according to OncoFEM legacy (recommended for Stand-alone installation)
+4) Append the OncoFEM environment
+
+Please restart the terminal afterwards.
 ````bash
-chmod +x install_dependencies.sh
-./install_dependencies.sh
+chmod +x create_environment.sh
+./create_environment.sh
 ````
-Now, the package can be installed with
+To install the dependencies execute the following shell script. Feel free to change the activated environment in the 
+first line. Please restart the terminal afterwards.
 ````bash
+conda activate oncogen
+chmod +x install_BrainMaGe.sh
+./install_BrainMaGe.sh
+````
+Now,  CaPTk can be installed, the SRI24 atlas can be downloaded and the OncoGEN package can be installed with
+````bash
+chmod +x install_captk.sh
+./install_captk.sh
+chmod +x get_sri24.sh
+./get_sri24.sh
 chmod +x install_oncogen.sh
 ./install_oncogen.sh
 ````
